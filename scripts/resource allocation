@@ -1,0 +1,17 @@
+-- SQL Query: Resource Allocation Based on Pandemic Cases and Mask Distribution
+
+SELECT 
+    region,
+    SUM(cases) AS total_cases,
+    SUM(masks_distributed) AS total_masks,
+    SUM(cases) - SUM(masks_distributed) AS masks_needed
+FROM 
+    pandemic_cases
+JOIN 
+    mask_distribution
+ON 
+    pandemic_cases.region_id = mask_distribution.region_id
+GROUP BY 
+    region
+ORDER BY 
+    masks_needed DESC;
